@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:social_app/features/auth/domain/usercases/register_use_case.dart';
 
-import '../data/repository/MockAuthRepository.dart';
+import '../../data/repository/MockAuthRepository.dart';
 
 void main() {
   group("RegistrationUseCase test", () {

@@ -4,15 +4,15 @@ class UserSessionService {
   final SessionLocalDataSource sessionLocalDataSource;
   UserSessionService({required this.sessionLocalDataSource});
 
-  Future<void> saveUserSession({required String token}) async {
-    return await sessionLocalDataSource.saveToken(token: token);
+  Future<void> presistSession({required String token}) async {
+    await sessionLocalDataSource.saveToken(token: token);
   }
 
   Future<String> getUserSession() {
     return sessionLocalDataSource.getToken();
   }
 
-  Future<void> clearUserSession() {
+  Future<void> logout() {
     return sessionLocalDataSource.deleteToken();
   }
 

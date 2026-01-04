@@ -6,20 +6,24 @@ import 'package:social_app/features/auth/presentation/register/bloc/register_eve
 import 'package:social_app/features/auth/presentation/register/bloc/register_state.dart';
 
 import '../../data/repository/MockAuthRepository.dart';
+import '../../domain/services/mock_user_session_service.dart';
 
 void main() {
   group('Registerbloc test', () {
     late RegisterBloc registerBloc;
     late RegisterBloc registerBlocWithRepositoryError;
+    MockUserSessionService mockUserSessionService = MockUserSessionService();
 
     setUp(() {
       registerBloc = RegisterBloc(
         registerUseCase: RegisterUseCase(authRepository: MockAuthRepository()),
+        userSessionService: mockUserSessionService,
       );
       registerBlocWithRepositoryError = RegisterBloc(
         registerUseCase: RegisterUseCase(
           authRepository: MockAuthWithErrorRepository(),
         ),
+        userSessionService: mockUserSessionService,
       );
     });
     blocTest(
