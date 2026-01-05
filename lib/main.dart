@@ -10,6 +10,10 @@ import 'package:social_app/features/auth/presentation/login/bloc/login_bloc.dart
 import 'package:social_app/features/auth/presentation/login/screens/login_page.dart';
 import 'package:social_app/features/auth/presentation/register/bloc/register_bloc.dart';
 import 'package:social_app/features/auth/presentation/register/screens/register_page.dart';
+import 'package:social_app/features/feed/data/repository/mock_post_repository.dart';
+import 'package:social_app/features/feed/domain/usecases/fetch_post_use_case.dart';
+import 'package:social_app/features/feed/presentation/bloc/feed/feed_bloc.dart';
+import 'package:social_app/features/feed/presentation/screens/feed_page.dart';
 import 'package:social_app/features/splash/splash_page.dart';
 
 void main() {
@@ -43,6 +47,14 @@ class MyApp extends StatelessWidget {
             userSessionService: userSessionService,
           ),
         ),
+
+        BlocProvider(
+          create: (_) => FeedBloc(
+            fetchPostsUseCase: FetchPostsUseCase(
+              postRepository: MockPostRepository(),
+            ),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Register Page',
@@ -54,23 +66,9 @@ class MyApp extends StatelessWidget {
         routes: {
           '/register': (_) => const RegisterPage(),
           '/login': (_) => const LoginPage(),
-          '/home': (_) => const HomePage(),
+          '/home': (_) => const FeedPage(),
         },
       ),
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Welcome to the Home Page!')));
   }
 }

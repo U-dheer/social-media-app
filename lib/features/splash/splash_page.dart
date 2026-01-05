@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:social_app/features/auth/domain/services/user_session_service.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,9 +10,10 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  void initStage() {
-    _checkSession();
+  @override
+  void initState() {
     super.initState();
+    _checkSession();
   }
 
   Future<void> _checkSession() async {
