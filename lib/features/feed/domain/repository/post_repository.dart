@@ -2,4 +2,5 @@ import 'package:social_app/features/feed/domain/entities/post_entity.dart';
 
 abstract class PostRepository {
   Future<List<PostEntity>> fetchPosts();
+  Future<bool> createPost({required PostEntity post});
 }
