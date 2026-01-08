@@ -8,38 +8,58 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                post.username,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              Text(
-                formatDate(post.createdAt),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+              CircleAvatar(radius: 20, backgroundColor: Colors.grey),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          post.username,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        const Spacer(),
+                        Text(
+                          formatDate(post.createdAt),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      post.content * 20,
+                      style: const TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Text(post.content, style: const TextStyle(fontSize: 15)),
-          const SizedBox(height: 10),
+
           if (post.imageUrl != null && post.imageUrl!.isNotEmpty) ...[
             const SizedBox(height: 10),
             ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               child: Image(image: NetworkImage(post.imageUrl!)),
             ),
           ],
@@ -51,6 +71,7 @@ class PostCard extends StatelessWidget {
               _PostStat(icon: Icons.favorite_border, count: post.likesCount),
               _PostStat(icon: Icons.favorite_border, count: post.commentsCount),
               _PostStat(icon: Icons.favorite_border, count: post.repostsCount),
+              const Icon(Icons.share, color: Colors.grey, size: 20),
             ],
           ),
         ],
@@ -58,69 +79,6 @@ class PostCard extends StatelessWidget {
     );
   }
 }
-
-// class _PostCardState extends State<PostCard> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//       elevation: 2,
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-//       child: Column(
-//         children: [
-//           Row(
-//             children: [
-//               Text(
-//                 widget.post.username,
-//                 style: const TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 16,
-//                 ),
-//               ),
-//               Text(
-//                 formatDate(widget.post.createdAt),
-//                 style: const TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 16,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 10),
-//           Text(widget.post.content, style: const TextStyle(fontSize: 15)),
-//           const SizedBox(height: 10),
-//           if (widget.post.imageUrl != null &&
-//               widget.post.imageUrl!.isNotEmpty) ...[
-//             const SizedBox(height: 10),
-//             ClipRRect(
-//               borderRadius: BorderRadius.circular(10),
-//               child: Image(image: NetworkImage(widget.post.imageUrl!)),
-//             ),
-//           ],
-//           const SizedBox(height: 10),
-
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               _postStat(
-//                 icon: Icons.favorite_border,
-//                 count: widget.post.likesCount,
-//               ),
-//               _postStat(
-//                 icon: Icons.favorite_border,
-//                 count: widget.post.commentsCount,
-//               ),
-//               _postStat(
-//                 icon: Icons.favorite_border,
-//                 count: widget.post.repostsCount,
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class _PostStat extends StatelessWidget {
   final IconData icon;
@@ -133,7 +91,10 @@ class _PostStat extends StatelessWidget {
       children: [
         Icon(icon, size: 10, color: Colors.grey),
         const SizedBox(width: 10),
-        Text('${count ?? 0}', style: const TextStyle(fontSize: 15)),
+        Text(
+          '${count ?? 0}',
+          style: const TextStyle(fontSize: 15, color: Colors.grey),
+        ),
       ],
     );
   }
