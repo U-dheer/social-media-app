@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/features/auth/presentation/login/bloc/login_bloc.dart';
 import 'package:social_app/features/auth/presentation/login/bloc/login_event.dart';
 import 'package:social_app/features/auth/presentation/login/bloc/login_state.dart';
+import 'package:social_app/features/feed/presentation/widget/build_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -59,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 40),
                   Center(
                     child: Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo.jpg',
                       height: 48,
                       width: 48,
                     ),
@@ -69,13 +70,13 @@ class _LoginPageState extends State<LoginPage> {
 
                   Column(
                     children: [
-                      _buildTextField(
+                      buildTextField(
                         controller: _emailController,
                         label: 'Email',
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 20),
-                      _buildTextField(
+                      buildTextField(
                         controller: _passwordController,
                         label: 'Password',
                         obscureText: true,
@@ -134,32 +135,32 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
-    String? Function(String?)? validator,
-  }) {
-    return TextFormField(
-      controller: controller,
+  // Widget _buildTextField({
+  //   required TextEditingController controller,
+  //   required String label,
+  //   bool obscureText = false,
+  //   TextInputType keyboardType = TextInputType.text,
+  //   String? Function(String?)? validator,
+  // }) {
+  //   return TextFormField(
+  //     controller: controller,
 
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      validator: validator,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.grey),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blue),
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
+  //     obscureText: obscureText,
+  //     keyboardType: keyboardType,
+  //     validator: validator,
+  //     style: const TextStyle(color: Colors.white),
+  //     decoration: InputDecoration(
+  //       labelText: label,
+  //       labelStyle: const TextStyle(color: Colors.grey),
+  //       enabledBorder: OutlineInputBorder(
+  //         borderSide: const BorderSide(color: Colors.grey),
+  //         borderRadius: BorderRadius.circular(12),
+  //       ),
+  //       focusedBorder: OutlineInputBorder(
+  //         borderSide: const BorderSide(color: Colors.blue),
+  //         borderRadius: BorderRadius.circular(12),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

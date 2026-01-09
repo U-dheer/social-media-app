@@ -1,4 +1,4 @@
-import 'package:social_app/features/auth/data/repository/datasources/session_local_data_source.dart';
+import 'package:social_app/features/auth/data/datasources/session_local_data_source.dart';
 import 'package:social_app/features/auth/domain/services/user_session_service.dart';
 
 class MockUserSessionService implements UserSessionService {

@@ -39,8 +39,7 @@ class PostCard extends StatelessWidget {
                           formatDate(post.createdAt),
                           style: const TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                       ],

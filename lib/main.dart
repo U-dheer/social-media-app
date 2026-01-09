@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:social_app/features/auth/data/repository/MockAuthRepository.dart';
-import 'package:social_app/features/auth/data/repository/datasources/session_local_data_source.dart';
+import 'package:social_app/features/auth/data/datasources/session_local_data_source.dart';
 import 'package:social_app/features/auth/domain/services/user_session_service.dart';
 import 'package:social_app/features/auth/domain/usercases/login_use_case.dart';
 import 'package:social_app/features/auth/domain/usercases/register_use_case.dart';

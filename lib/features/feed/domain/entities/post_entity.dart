@@ -27,4 +27,35 @@ class PostEntity {
       throw Exception("Content cannot be empty");
     }
   }
+
+  //serilization layers //
+  factory PostEntity.fromJson(Map<String, dynamic> json) {
+    return PostEntity(
+      id: json['id'] as String?,
+      userId: json['user_id'] as String,
+      username: json['username'] as String,
+      content: json['content'] as String,
+      createdAt: DateTime.parse(json['created_at'] as String),
+      likesCount: json['likes_count'] as int?,
+      commentsCount: json['comments_count'] as int?,
+      repostsCount: json['reposts_count'] as int?,
+      imageUrl: json['image_url'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (id != null) 'id': id,
+      'user_id': userId,
+      'username': username,
+      'content': content,
+      'created_at': createdAt.toIso8601String(),
+      'likes_count': likesCount,
+      'comments_count': commentsCount,
+      'reposts_count': repostsCount,
+      'image_url': imageUrl,
+    };
+  }
+
+  bool hasImage() => imageUrl != null && imageUrl!.isNotEmpty;
 }
