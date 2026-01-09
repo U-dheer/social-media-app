@@ -18,49 +18,70 @@ import 'package:social_app/features/feed/presentation/bloc/post/create_post_bloc
 import 'package:social_app/features/feed/presentation/screens/feed_page.dart';
 import 'package:social_app/features/splash/splash_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
-    final SessionLocalDataSource sessionLocalDataSource =
-        SessionLocalDataSourceImpl(secureStorage: secureStorage);
-    final UserSessionService userSessionService = UserSessionService(
-      sessionLocalDataSource: sessionLocalDataSource,
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final FlutterSecureStorage _secureStorage;
+  late final SessionLocalDataSource _sessionLocalDataSource;
+  late final UserSessionService _userSessionService;
+  late final Mockauthrepository _authRepository;
+  late final MockPostRepository _postRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeDependencies();
+  }
+
+  void _initializeDependencies() {
+    _secureStorage = const FlutterSecureStorage();
+    _sessionLocalDataSource = SessionLocalDataSourceImpl(
+      secureStorage: _secureStorage,
     );
+    _userSessionService = UserSessionService(
+      sessionLocalDataSource: _sessionLocalDataSource,
+    );
+    _authRepository = Mockauthrepository();
+    _postRepository = MockPostRepository();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => RegisterBloc(
-            registerUseCase: RegisterUseCase(
-              authRepository: Mockauthrepository(),
-            ),
-            userSessionService: userSessionService,
+            registerUseCase: RegisterUseCase(authRepository: _authRepository),
+            userSessionService: _userSessionService,
           ),
         ),
         BlocProvider(
           create: (_) => LoginBloc(
-            loginUseCase: LoginUseCase(authRepository: Mockauthrepository()),
-            userSessionService: userSessionService,
+            loginUseCase: LoginUseCase(authRepository: _authRepository),
+            userSessionService: _userSessionService,
           ),
         ),
-
         BlocProvider(
           create: (_) => FeedBloc(
             fetchPostsUseCase: FetchPostsUseCase(
-              postRepository: MockPostRepository(),
+              postRepository: _postRepository,
             ),
           ),
         ),
         BlocProvider(
           create: (_) => CreatePostBloc(
             createPostUseCase: CreatePostUseCase(
-              postRepository: MockPostRepository(),
+              postRepository: _postRepository,
             ),
           ),
         ),
@@ -70,7 +91,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: SplashPage(userSessionService: userSessionService),
+        home: SplashPage(userSessionService: _userSessionService),
         // initialRoute: '/login',
         routes: {
           '/register': (_) => const RegisterPage(),

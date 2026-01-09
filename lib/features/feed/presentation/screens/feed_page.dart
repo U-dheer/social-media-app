@@ -114,9 +114,9 @@ class _FeedPageState extends State<FeedPage> {
             if (state is CreatePostSuccess) {
               Navigator.pop(context);
               context.read<FeedBloc>().add(FetchPostsRequested());
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Post created successfully')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Post created!')));
             } else if (state is CreatePostFailure) {
               Navigator.pop(context);
               ScaffoldMessenger.of(
@@ -125,8 +125,8 @@ class _FeedPageState extends State<FeedPage> {
             }
           },
           builder: (context, state) {
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
+            return SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Form(
@@ -225,7 +225,7 @@ class _FeedPageState extends State<FeedPage> {
           child: CircleAvatar(backgroundColor: Colors.grey[800]),
         ),
         centerTitle: true,
-        title: Image.asset('assets/images/logo.png', height: 32, width: 32),
+        title: Image.asset('assets/images/.png', height: 32, width: 32),
         actions: [
           IconButton(
             onPressed: () {},
